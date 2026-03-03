@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأرشيف الشامل — VRTICS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Tajawal:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --bg: #0f172a;
+            --card: rgba(30, 41, 59, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #f8fafc;
+            --muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 90% 10%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
+        }
+
+        /* --- Navigation --- */
+        nav {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-logo {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* --- Content --- */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .header-info {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-info h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .header-info p {
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .search-card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 20px;
+            color: #fff;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .stats-pill {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- Table --- */
+        .table-container {
+            background: var(--card);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+
+        th {
+            padding: 18px 24px;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .user-tag {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .time-tag {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .msg-cell {
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .loader-box {
+            padding: 100px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .loader {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .header-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="brand">
+            <div class="brand-logo">V</div>
+            <span class="brand-name">VRTICS ARCHIVE</span>
+        </a>
+        <a href="index.html" class="back-link">← العودة للبث</a>
+    </nav>
+
+    <div class="container">
+        <div class="header-info">
+            <div>
+                <h1>أرشيف الرسائل</h1>
+                <p>استعراض كافة التعليقات المخزنة في قاعدة البيانات.</p>
+            </div>
+            <div class="stats-pill" id="total-stats">0 رسالة مؤرشفة</div>
+        </div>
+
+        <div class="search-card">
+            <input type="text" id="search" class="search-input" placeholder="ابحث عن مستخدم أو نص معين...">
+        </div>
+
+        <div class="table-container">
+            <table id="archive-table">
+                <thead>
+                    <tr>
+                        <th width="20%">المستخدم</th>
+                        <th width="60%">الرسالة</th>
+                        <th width="20%">التوقيت</th>
+                    </tr>
+                </thead>
+                <tbody id="archive-body">
+                    <!-- Data injected here -->
+                </tbody>
+            </table>
+            <div id="loading" class="loader-box">
+                <div class="loader"></div>
+                <p>جاري استرداد البيانات من السحابة...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPA_URL = "https://amuopyagznrsyojqxaqp.supabase.co";
+        const SUPA_KEY = "sb_publishable_VEEiRh3zLWxhzIwgJBcvLw_f0hABb0u";
+        const DELETED_PREFIX = "🗑️ [محذوف] ";
+        let allData = [];
+
+        function formatTime(iso) {
+            return new Date(iso).toLocaleString("ar-IQ", {
+                month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Baghdad"
+            });
+        }
+
+        function esc(t) {
+            const p = document.createElement('p');
+            p.textContent = t;
+            return p.innerHTML;
+        }
+
+        async function loadArchive() {
+            try {
+                const res = await fetch(`${SUPA_URL}/rest/v1/comments?select=author,message,created_at&order=created_at.desc&limit=1000`, {
+                    headers: { apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}` }
+                });
+                const data = await res.json();
+
+                // Filter out system deletes from archive view to keep it clean
+                allData = data.filter(m => m.message && !m.message.startsWith(DELETED_PREFIX));
+
+                document.getElementById("total-stats").innerText = `${allData.length.toLocaleString()} رسالة مؤرشفة`;
+                render(allData);
+                document.getElementById("loading").style.display = "none";
+            } catch (err) {
+                console.error("Load Error:", err);
+            }
+        }
+
+        function render(data) {
+            const body = document.getElementById("archive-body");
+            if (data.length === 0) {
+                body.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 50px; color: var(--muted);">لا توجد نتائج مطابقة</td></tr>';
+                return;
+            }
+
+            body.innerHTML = data.map(m => `
+        <tr>
+          <td><span class="user-tag">${esc(m.author)}</span></td>
+          <td class="msg-cell">${esc(m.message)}</td>
+          <td><span class="time-tag">${formatTime(m.created_at)}</span></td>
+        </tr>
+      `).join('');
+        }
+
+        document.getElementById("search").addEventListener("input", (e) => {
+            const q = e.target.value.toLowerCase();
+            const filtered = allData.filter(m =>
+                (m.author && m.author.toLowerCase().includes(q)) ||
+                (m.message && m.message.toLowerCase().includes(q))
+            );
+            render(filtered);
+        });
+
+        loadArchive();
+    </script>
+</body>
+
+</html>
